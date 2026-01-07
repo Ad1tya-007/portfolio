@@ -1,0 +1,108 @@
+.menu-bar {
+  height: 24px;
+  background: rgba(30, 30, 30, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  color: white;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1000;
+}
+
+.menu-left,
+.menu-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.apple-menu {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  cursor: pointer;
+}
+
+.menu-item {
+  padding: 0 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  cursor: pointer;
+  height: 24px;
+  transition: background 0.2s;
+}
+
+.menu-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Tablet and below - hide some menu items */
+@media (max-width: 1024px) {
+  .menu-left .menu-item:not(:first-child) {
+    display: none;
+  }
+
+  .menu-left .menu-item:first-child {
+    display: flex;
+  }
+}
+
+/* Mobile - simplify menu bar */
+@media (max-width: 768px) {
+  .menu-bar {
+    font-size: 12px;
+    padding: 0 8px;
+  }
+
+  .menu-left,
+  .menu-right {
+    gap: 8px;
+  }
+
+  .menu-item {
+    padding: 0 4px;
+    font-size: 11px;
+  }
+
+  .menu-icon {
+    padding: 0 4px;
+  }
+
+  .menu-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .apple-menu svg {
+    width: 12px;
+    height: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-right .menu-icon:nth-child(1),
+  .menu-right .menu-icon:nth-child(2) {
+    display: none;
+  }
+}
+

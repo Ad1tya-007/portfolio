@@ -1,0 +1,72 @@
+.welcome-screen {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-content {
+  text-align: center;
+  color: white;
+}
+
+.welcome-title {
+  font-size: 72px;
+  font-weight: 300;
+  margin-bottom: 40px;
+  letter-spacing: -2px;
+}
+
+.start-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  color: white;
+  padding: 16px 48px;
+  font-size: 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.start-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .welcome-title {
+    font-size: 56px;
+  }
+
+  .start-button {
+    padding: 14px 40px;
+    font-size: 18px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .welcome-title {
+    font-size: 48px;
+  }
+
+  .start-button {
+    padding: 12px 32px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-title {
+    font-size: 36px;
+  }
+
+  .start-button {
+    padding: 10px 28px;
+    font-size: 14px;
+  }
+}
+

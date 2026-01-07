@@ -1,0 +1,270 @@
+.folder-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 600px;
+  background: rgba(40, 40, 40, 0.95);
+  backdrop-filter: blur(40px) saturate(180%);
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1001;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.folder-window.maximized {
+  width: 95vw;
+  height: 90vh;
+}
+
+.window-titlebar {
+  height: 40px;
+  background: rgba(50, 50, 50, 0.95);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.window-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.window-control {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.window-control:hover {
+  filter: brightness(1.2);
+}
+
+.window-control.close {
+  background: #ff5f56;
+}
+
+.window-control.minimize {
+  background: #ffbd2e;
+}
+
+.window-control.maximize {
+  background: #27c93f;
+}
+
+.window-title {
+  flex: 1;
+  text-align: center;
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.window-toolbar {
+  height: 48px;
+  background: rgba(60, 60, 60, 0.9);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.toolbar-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.toolbar-btn {
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.toolbar-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.window-path {
+  flex: 1;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+}
+
+.window-content {
+  height: calc(100% - 40px - 48px);
+  padding: 20px;
+  overflow-y: auto;
+  color: white;
+}
+
+.placeholder-content {
+  text-align: center;
+  padding: 40px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.placeholder-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.placeholder-subtitle {
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.window-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.window-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.window-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+.window-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .folder-window {
+    width: 90vw;
+    height: 70vh;
+  }
+
+  .folder-window.maximized {
+    width: 95vw;
+    height: 85vh;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .folder-window {
+    width: 95vw;
+    height: 80vh;
+    border-radius: 8px;
+  }
+
+  .folder-window.maximized {
+    width: 100vw;
+    height: 90vh;
+    border-radius: 0;
+  }
+
+  .window-titlebar {
+    height: 36px;
+  }
+
+  .window-control {
+    width: 10px;
+    height: 10px;
+  }
+
+  .window-title {
+    font-size: 12px;
+  }
+
+  .window-toolbar {
+    height: 40px;
+    padding: 0 8px;
+  }
+
+  .toolbar-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+  }
+
+  .window-path {
+    font-size: 11px;
+  }
+
+  .window-content {
+    height: calc(100% - 36px - 40px);
+    padding: 16px;
+  }
+
+  .placeholder-content {
+    padding: 24px;
+  }
+
+  .placeholder-icon {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .window-titlebar {
+    height: 32px;
+  }
+
+  .window-control {
+    width: 9px;
+    height: 9px;
+  }
+
+  .window-controls {
+    gap: 6px;
+  }
+
+  .window-title {
+    font-size: 11px;
+  }
+
+  .window-toolbar {
+    height: 36px;
+    padding: 0 6px;
+    gap: 8px;
+  }
+
+  .toolbar-btn {
+    width: 22px;
+    height: 22px;
+    font-size: 12px;
+  }
+
+  .window-path {
+    font-size: 10px;
+  }
+
+  .window-content {
+    height: calc(100% - 32px - 36px);
+    padding: 12px;
+  }
+
+  .placeholder-content {
+    padding: 16px;
+  }
+
+  .placeholder-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+
+  .placeholder-subtitle {
+    font-size: 11px;
+  }
+}
+
