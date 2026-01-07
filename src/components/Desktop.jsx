@@ -3,20 +3,17 @@ import MenuBar from './MenuBar'
 import Folder from './Folder'
 import Dock from './Dock'
 import FolderWindow from './FolderWindow'
+import { getRootFolders } from '../data/folders'
 import './Desktop.css'
 
 function Desktop({ active }) {
   const [selectedFolder, setSelectedFolder] = useState(null)
-  const [openFolder, setOpenFolder] = useState(null)
+  const [openWindows, setOpenWindows] = useState([])
+  const [activeWindowId, setActiveWindowId] = useState(null)
   const [folderPositions, setFolderPositions] = useState([])
+  const [nextWindowId, setNextWindowId] = useState(1)
 
-  const folders = [
-    { id: 'about', name: 'About Me' },
-    { id: 'projects', name: 'Projects' },
-    { id: 'skills', name: 'Skills' },
-    { id: 'experience', name: 'Experience' },
-    { id: 'contact', name: 'Contact' }
-  ]
+  const rootFolders = getRootFolders()
 
   // Calculate responsive folder positions
   useEffect(() => {
@@ -29,7 +26,7 @@ function Desktop({ active }) {
         const startX = width - 140
         const startY = 80
         const spacing = 120
-        return folders.map((folder, index) => ({
+        return rootFolders.map((folder, index) => ({
           ...folder,
           x: startX,
           y: startY + (index * spacing)
@@ -40,7 +37,7 @@ function Desktop({ active }) {
         const startX = width - 120
         const startY = 60
         const spacing = 100
-        return folders.map((folder, index) => ({
+        return rootFolders.map((folder, index) => ({
           ...folder,
           x: startX,
           y: startY + (index * spacing)
@@ -54,7 +51,7 @@ function Desktop({ active }) {
         const spacingY = 100
         const itemsPerRow = width < 480 ? 3 : 4
         
-        return folders.map((folder, index) => ({
+        return rootFolders.map((folder, index) => ({
           ...folder,
           x: startX + (index % itemsPerRow) * spacingX,
           y: startY + Math.floor(index / itemsPerRow) * spacingY
@@ -70,18 +67,46 @@ function Desktop({ active }) {
 
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  }, [rootFolders])
 
   const handleFolderClick = (folderId) => {
     setSelectedFolder(folderId)
   }
 
   const handleFolderDoubleClick = (folder) => {
-    setOpenFolder(folder)
+    // Check if window is already open for this folder
+    const existingWindow = openWindows.find(w => w.folder.id === folder.id)
+    
+    if (existingWindow) {
+      // Bring existing window to front
+      setActiveWindowId(existingWindow.id)
+    } else {
+      // Create new window with offset position
+      const windowId = nextWindowId
+      const offset = (openWindows.length % 5) * 30 // Cascade windows
+      
+      const newWindow = {
+        id: windowId,
+        folder: folder,
+        initialOffset: offset
+      }
+      
+      setOpenWindows([...openWindows, newWindow])
+      setActiveWindowId(windowId)
+      setNextWindowId(nextWindowId + 1)
+    }
   }
 
-  const handleCloseWindow = () => {
-    setOpenFolder(null)
+  const handleCloseWindow = (windowId) => {
+    setOpenWindows(openWindows.filter(w => w.id !== windowId))
+    if (activeWindowId === windowId) {
+      const remaining = openWindows.filter(w => w.id !== windowId)
+      setActiveWindowId(remaining.length > 0 ? remaining[remaining.length - 1].id : null)
+    }
+  }
+
+  const handleWindowFocus = (windowId) => {
+    setActiveWindowId(windowId)
   }
 
   return (
@@ -102,12 +127,17 @@ function Desktop({ active }) {
 
       <Dock />
 
-      {openFolder && (
+      {openWindows.map((window) => (
         <FolderWindow
-          folder={openFolder}
-          onClose={handleCloseWindow}
+          key={window.id}
+          windowId={window.id}
+          folder={window.folder}
+          initialOffset={window.initialOffset}
+          isActive={activeWindowId === window.id}
+          onClose={() => handleCloseWindow(window.id)}
+          onFocus={() => handleWindowFocus(window.id)}
         />
-      )}
+      ))}
     </div>
   )
 }

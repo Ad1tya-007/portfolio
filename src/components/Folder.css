@@ -9,6 +9,9 @@
   border-radius: 8px;
   transition: background 0.2s;
   user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
 }
 
 .folder:hover {

@@ -1,12 +1,57 @@
-import './Folder.css'
+import { useRef } from 'react';
+import './Folder.css';
 
 function Folder({ folder, isSelected, onClick, onDoubleClick }) {
+  const lastTapRef = useRef(0);
+  const tapTimeoutRef = useRef(null);
+
+  // Handle touch events for mobile double-tap
+  const handleTouchEnd = (e) => {
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTapRef.current;
+
+    // Clear any existing timeout
+    if (tapTimeoutRef.current) {
+      clearTimeout(tapTimeoutRef.current);
+    }
+
+    // Double tap detected (within 300ms)
+    if (tapLength < 300 && tapLength > 0) {
+      e.preventDefault();
+      onDoubleClick();
+      lastTapRef.current = 0;
+    } else {
+      // Single tap - wait to see if there's a second tap
+      tapTimeoutRef.current = setTimeout(() => {
+        onClick();
+        lastTapRef.current = 0;
+      }, 300);
+      lastTapRef.current = currentTime;
+    }
+  };
+
+  // Handle mouse events for desktop
+  const handleClick = (e) => {
+    // Only handle click if not a touch device
+    if (e.type === 'click' && !('ontouchstart' in window)) {
+      onClick();
+    }
+  };
+
+  const handleDoubleClick = (e) => {
+    // Only handle double-click if not a touch device
+    if (e.type === 'dblclick' && !('ontouchstart' in window)) {
+      onDoubleClick();
+    }
+  };
+
   return (
     <div
       className={`folder ${isSelected ? 'selected' : ''}`}
       style={{ position: 'absolute', left: `${folder.x}px`, top: `${folder.y}px` }}
-      onClick={onClick}
-      onDoubleClick={onDoubleClick}
+      onClick={handleClick}
+      onDoubleClick={handleDoubleClick}
+      onTouchEnd={handleTouchEnd}
     >
       <div className="folder-icon">
         <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -15,8 +60,8 @@ function Folder({ folder, isSelected, onClick, onDoubleClick }) {
       </div>
       <div className="folder-name">{folder.name}</div>
     </div>
-  )
+  );
 }
 
-export default Folder
+export default Folder;
 
