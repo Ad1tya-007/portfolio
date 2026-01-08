@@ -11,6 +11,7 @@ function Desktop({ active }) {
   const [openWindows, setOpenWindows] = useState([])
   const [activeWindowId, setActiveWindowId] = useState(null)
   const [folderPositions, setFolderPositions] = useState([])
+  const [customPositions, setCustomPositions] = useState({}) // Store custom positions for desktop
   const [nextWindowId, setNextWindowId] = useState(1)
 
   const rootFolders = getRootFolders()
@@ -21,18 +22,29 @@ function Desktop({ active }) {
       const width = window.innerWidth
       const height = window.innerHeight
       
-      // Desktop: right side vertical layout
+      // Desktop: use custom positions if available, otherwise default
       if (width > 1024) {
         const startX = width - 140
         const startY = 80
         const spacing = 120
-        return rootFolders.map((folder, index) => ({
-          ...folder,
-          x: startX,
-          y: startY + (index * spacing)
-        }))
+        return rootFolders.map((folder, index) => {
+          // Use custom position if it exists for this folder
+          if (customPositions[folder.id]) {
+            return {
+              ...folder,
+              x: customPositions[folder.id].x,
+              y: customPositions[folder.id].y
+            }
+          }
+          // Otherwise use default position
+          return {
+            ...folder,
+            x: startX,
+            y: startY + (index * spacing)
+          }
+        })
       }
-      // Tablet: right side with tighter spacing
+      // Tablet/Mobile: ignore custom positions, use fixed layout
       else if (width > 768) {
         const startX = width - 120
         const startY = 60
@@ -67,7 +79,7 @@ function Desktop({ active }) {
 
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [rootFolders])
+  }, [rootFolders, customPositions])
 
   const handleFolderClick = (folderId) => {
     setSelectedFolder(folderId)
@@ -109,6 +121,16 @@ function Desktop({ active }) {
     setActiveWindowId(windowId)
   }
 
+  const handleFolderDragEnd = (folderId, newX, newY) => {
+    // Only save custom positions on desktop (> 1024px)
+    if (window.innerWidth > 1024) {
+      setCustomPositions(prev => ({
+        ...prev,
+        [folderId]: { x: newX, y: newY }
+      }))
+    }
+  }
+
   return (
     <div className={`screen desktop ${active ? 'active' : ''}`}>
       <MenuBar />
@@ -121,6 +143,7 @@ function Desktop({ active }) {
             isSelected={selectedFolder === folder.id}
             onClick={() => handleFolderClick(folder.id)}
             onDoubleClick={() => handleFolderDoubleClick(folder)}
+            onDragEnd={handleFolderDragEnd}
           />
         ))}
       </div>
