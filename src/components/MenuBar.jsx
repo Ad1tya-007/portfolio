@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import './MenuBar.css';
 
-function MenuBar() {
+function MenuBar({ onOpenSystemSettings, appearance = 'dark' }) {
   const [currentTime, setCurrentTime] = useState('');
+  const [showAppleMenu, setShowAppleMenu] = useState(false);
 
   useEffect(() => {
     const updateTime = () => {
@@ -25,10 +26,41 @@ function MenuBar() {
     return () => clearInterval(interval);
   }, []);
 
+  const toggleAppleMenu = () => {
+    setShowAppleMenu(!showAppleMenu);
+  };
+
+  const handleSystemSettings = () => {
+    setShowAppleMenu(false);
+    if (onOpenSystemSettings) {
+      onOpenSystemSettings();
+    }
+  };
+
+  const handleLogOut = () => {
+    setShowAppleMenu(false);
+    // Log out functionality (will be implemented)
+    console.log('Log Out');
+  };
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (showAppleMenu && !e.target.closest('.apple-menu')) {
+        setShowAppleMenu(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [showAppleMenu]);
+
   return (
-    <div className="menu-bar">
+    <div
+      className={`menu-bar menu-bar-${appearance}`}
+      data-appearance={appearance}>
       <div className="menu-left">
-        <div className="apple-menu">
+        <div className="apple-menu" onClick={toggleAppleMenu}>
           <svg
             width="14"
             height="17"
@@ -39,6 +71,21 @@ function MenuBar() {
               fill="currentColor"
             />
           </svg>
+
+          {/* Apple Menu Dropdown */}
+          {showAppleMenu && (
+            <div className="apple-menu-dropdown">
+              <div
+                className="menu-dropdown-item"
+                onClick={handleSystemSettings}>
+                <span>System Settings...</span>
+              </div>
+              <div className="menu-dropdown-divider"></div>
+              <div className="menu-dropdown-item" onClick={handleLogOut}>
+                <span>Log Out...</span>
+              </div>
+            </div>
+          )}
         </div>
         <div className="menu-item">Adityas Portfolio</div>
         <div className="menu-item">File</div>
@@ -131,4 +178,3 @@ function MenuBar() {
 }
 
 export default MenuBar;
-

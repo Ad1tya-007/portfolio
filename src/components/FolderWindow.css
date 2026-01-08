@@ -9,6 +9,271 @@
   flex-direction: column;
   min-width: 400px;
   min-height: 300px;
+  transition: background 0.3s ease, border 0.3s ease;
+}
+
+/* Light Mode */
+.folder-window-light {
+  background: #f5f5f7;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.folder-window-light .window-titlebar {
+  background: #e8e8ea;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.folder-window-light .window-title {
+  color: #1d1d1f;
+}
+
+.folder-window-light .window-toolbar {
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.folder-window-light .toolbar-btn,
+.folder-window-light .view-btn {
+  color: #1d1d1f;
+  background: transparent;
+}
+
+.folder-window-light .toolbar-btn:hover,
+.folder-window-light .view-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.folder-window-light .toolbar-btn.active,
+.folder-window-light .view-btn.active {
+  background: rgba(0, 0, 0, 0.1);
+  color: #0066cc;
+}
+
+.folder-window-light .toolbar-center {
+  color: #86868b;
+}
+
+.folder-window-light .window-sidebar {
+  background: #f5f5f7;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.folder-window-light .sidebar-title {
+  color: #86868b;
+}
+
+.folder-window-light .sidebar-item {
+  color: #1d1d1f;
+}
+
+.folder-window-light .sidebar-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.folder-window-light .sidebar-item.active {
+  background: rgba(0, 122, 255, 0.15);
+  color: #0066cc;
+}
+
+.folder-window-light .sidebar-item svg {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.folder-window-light .sidebar-item.active svg {
+  color: #0066cc;
+}
+
+.folder-window-light .window-content {
+  background: #ffffff;
+  color: #1d1d1f;
+}
+
+.folder-window-light .folder-item {
+  color: #1d1d1f;
+}
+
+.folder-window-light .folder-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.folder-window-light .folder-item.selected {
+  background: rgba(0, 122, 255, 0.15);
+}
+
+.folder-window-light .folder-name {
+  color: #1d1d1f;
+}
+
+.folder-window-light .file-item {
+  color: #1d1d1f;
+}
+
+.folder-window-light .file-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.folder-window-light .file-item.selected {
+  background: rgba(0, 122, 255, 0.15);
+}
+
+.folder-window-light .file-name {
+  color: #1d1d1f;
+}
+
+.folder-window-light .content-item {
+  color: #1d1d1f;
+}
+
+.folder-window-light .content-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.folder-window-light .content-item.selected {
+  background: rgba(0, 122, 255, 0.15);
+  outline-color: rgba(0, 122, 255, 0.3);
+}
+
+.folder-window-light .item-name {
+  color: #1d1d1f;
+}
+
+.folder-window-light .placeholder-content {
+  color: #86868b;
+}
+
+/* Dark Mode (default) */
+.folder-window-dark {
+  background: #2b2b2b;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Auto Mode - use system preference */
+.folder-window-auto {
+  background: #2b2b2b;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+@media (prefers-color-scheme: light) {
+  .folder-window-auto {
+    background: #f5f5f7;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  }
+
+  .folder-window-auto .window-titlebar {
+    background: #e8e8ea;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .folder-window-auto .window-title {
+    color: #1d1d1f;
+  }
+
+  .folder-window-auto .window-toolbar {
+    background: #ffffff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .folder-window-auto .toolbar-btn,
+  .folder-window-auto .view-btn {
+    color: #1d1d1f;
+  }
+
+  .folder-window-auto .toolbar-btn:hover,
+  .folder-window-auto .view-btn:hover {
+    background: rgba(0, 0, 0, 0.06);
+  }
+
+  .folder-window-auto .toolbar-btn.active,
+  .folder-window-auto .view-btn.active {
+    background: rgba(0, 0, 0, 0.1);
+    color: #0066cc;
+  }
+
+  .folder-window-auto .toolbar-center {
+    color: #86868b;
+  }
+
+  .folder-window-auto .window-sidebar {
+    background: #f5f5f7;
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .folder-window-auto .sidebar-title {
+    color: #86868b;
+  }
+
+  .folder-window-auto .sidebar-item {
+    color: #1d1d1f;
+  }
+
+  .folder-window-auto .sidebar-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .folder-window-auto .sidebar-item.active {
+    background: rgba(0, 122, 255, 0.15);
+    color: #0066cc;
+  }
+
+  .folder-window-auto .sidebar-item svg {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .folder-window-auto .sidebar-item.active svg {
+    color: #0066cc;
+  }
+
+  .folder-window-auto .window-content {
+    background: #ffffff;
+  }
+
+  .folder-window-auto .folder-item,
+  .folder-window-auto .file-item {
+    color: #1d1d1f;
+  }
+
+  .folder-window-auto .folder-item:hover,
+  .folder-window-auto .file-item:hover {
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .folder-window-auto .folder-item.selected,
+  .folder-window-auto .file-item.selected {
+    background: rgba(0, 122, 255, 0.15);
+  }
+
+  .folder-window-auto .folder-name,
+  .folder-window-auto .file-name {
+    color: #1d1d1f;
+  }
+
+  .folder-window-auto .window-content {
+    color: #1d1d1f;
+  }
+
+  .folder-window-auto .content-item {
+    color: #1d1d1f;
+  }
+
+  .folder-window-auto .content-item:hover {
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .folder-window-auto .content-item.selected {
+    background: rgba(0, 122, 255, 0.15);
+    outline-color: rgba(0, 122, 255, 0.3);
+  }
+
+  .folder-window-auto .item-name {
+    color: #1d1d1f;
+  }
+
+  .folder-window-auto .placeholder-content {
+    color: #86868b;
+  }
 }
 
 .folder-window:not(.dragging):not(.resizing) {

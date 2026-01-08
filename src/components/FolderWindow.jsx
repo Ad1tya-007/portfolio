@@ -13,6 +13,7 @@ function FolderWindow({
   isActive,
   onClose,
   onFocus,
+  appearance = 'dark',
 }) {
   const [isMaximized, setIsMaximized] = useState(false);
   const [currentView, setCurrentView] = useState('icon'); // icon, list, column, gallery
@@ -271,11 +272,12 @@ function FolderWindow({
 
       <div
         ref={windowRef}
-        className={`folder-window ${isMaximized ? 'maximized' : ''} ${
+        className={`folder-window folder-window-${appearance} ${isMaximized ? 'maximized' : ''} ${
           isDragging ? 'dragging' : ''
         } ${isResizing ? 'resizing' : ''} ${isActive ? 'active' : ''}`}
         style={getWindowStyle()}
-        onMouseDown={onFocus}>
+        onMouseDown={onFocus}
+        data-appearance={appearance}>
         <div
           ref={titlebarRef}
           className="window-titlebar"

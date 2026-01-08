@@ -3,6 +3,7 @@ import MenuBar from './MenuBar'
 import Folder from './Folder'
 import Dock from './Dock'
 import FolderWindow from './FolderWindow'
+import SystemSettings from './SystemSettings'
 import { getRootFolders } from '../data/folders'
 import './Desktop.css'
 
@@ -13,6 +14,9 @@ function Desktop({ active }) {
   const [folderPositions, setFolderPositions] = useState([])
   const [customPositions, setCustomPositions] = useState({}) // Store custom positions for desktop
   const [nextWindowId, setNextWindowId] = useState(1)
+  const [showSystemSettings, setShowSystemSettings] = useState(false)
+  const [appearance, setAppearance] = useState('dark') // light, dark, auto
+  const [wallpaper, setWallpaper] = useState('gradient-blue')
 
   const rootFolders = getRootFolders()
 
@@ -131,9 +135,21 @@ function Desktop({ active }) {
     }
   }
 
+  const handleOpenSystemSettings = () => {
+    setShowSystemSettings(true)
+  }
+
+  const handleCloseSystemSettings = () => {
+    setShowSystemSettings(false)
+  }
+
   return (
-    <div className={`screen desktop ${active ? 'active' : ''}`}>
-      <MenuBar />
+    <div 
+      className={`screen desktop ${active ? 'active' : ''}`}
+      data-appearance={appearance}
+      data-wallpaper={wallpaper}
+    >
+      <MenuBar onOpenSystemSettings={handleOpenSystemSettings} appearance={appearance} />
       
       <div className="desktop-area">
         {folderPositions.map(folder => (
@@ -159,8 +175,21 @@ function Desktop({ active }) {
           isActive={activeWindowId === window.id}
           onClose={() => handleCloseWindow(window.id)}
           onFocus={() => handleWindowFocus(window.id)}
+          appearance={appearance}
         />
       ))}
+
+      {showSystemSettings && (
+        <SystemSettings 
+          onClose={handleCloseSystemSettings}
+          appearance={appearance}
+          setAppearance={setAppearance}
+          wallpaper={wallpaper}
+          setWallpaper={setWallpaper}
+          isActive={true}
+          onFocus={() => {}}
+        />
+      )}
     </div>
   )
 }
