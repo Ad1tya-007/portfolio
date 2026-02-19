@@ -60,7 +60,7 @@ export const folders = [
   // Projects contents - nested folders
   {
     id: 201,
-    name: 'project_1',
+    name: 'prodlines',
     parent: 2,
     type: 'folder',
     icon: 'folder',
@@ -80,14 +80,37 @@ export const folders = [
     icon: 'folder',
   },
 
-  // Project 1 contents
+  // Prodlines project contents
   {
     id: 2011,
     name: 'README.md',
     parent: 201,
     type: 'file',
     icon: 'markdown',
-    content: '# Project 1\n\nProject description...',
+    content: `# ProdLines
+
+A dashboard that shows production code ownership across your engineering team. Connect GitHub repos and see who owns the most lines currently in production—only merged code counts.
+
+## What it does
+
+- **Production LOC leaderboard** — Real ownership metrics based on what's actually shipped, not vanity stats
+- **Multi-repo dashboard** — Connect several repos and see an overview across your team
+- **Trend tracking** — Compare snapshots over time to see how LOC and contributor counts change
+- **Notifications** — Email, Discord, and Slack alerts when stats sync
+- **Read-only access** — Uses GitHub OAuth; no tokens stored and no writes to your repos
+
+## Tech stack
+
+- **Next.js 16** (App Router) · **React 19**
+- **Supabase** — Auth (GitHub OAuth), Postgres, RLS
+- **TanStack Query** · **Redux Toolkit**
+- **Tailwind CSS** · **Radix UI**
+- **Vercel** — Hosting & Analytics
+
+## Links
+
+- Live: prodlines.vercel.app
+- Repo: github.com/Ad1tya-007/prodlines`,
   },
   {
     id: 2012,
@@ -96,48 +119,39 @@ export const folders = [
     type: 'folder',
     icon: 'folder',
   },
-  {
-    id: 2013,
-    name: 'code',
-    parent: 201,
-    type: 'folder',
-    icon: 'folder',
-  },
 
-  // Project 1 - Screenshots folder
+  // Prodlines - Screenshots folder
   {
     id: 20121,
-    name: 'screenshot1.png',
+    name: 'prodlines1.jpeg',
     parent: 2012,
     type: 'file',
     icon: 'image',
-    content: 'Image file...',
+    content: '/src/data/projects/prodlines/prodlines1.jpeg',
   },
   {
     id: 20122,
-    name: 'screenshot2.png',
+    name: 'prodlines2.jpeg',
     parent: 2012,
     type: 'file',
     icon: 'image',
-    content: 'Image file...',
-  },
-
-  // Project 1 - Code folder
-  {
-    id: 20131,
-    name: 'index.js',
-    parent: 2013,
-    type: 'file',
-    icon: 'javascript',
-    content: 'console.log("Hello World");',
+    content: '/src/data/projects/prodlines/prodlines2.jpeg',
   },
   {
-    id: 20132,
-    name: 'styles.css',
-    parent: 2013,
+    id: 20123,
+    name: 'prodlines3.jpeg',
+    parent: 2012,
     type: 'file',
-    icon: 'css',
-    content: 'body { margin: 0; }',
+    icon: 'image',
+    content: '/src/data/projects/prodlines/prodlines3.jpeg',
+  },
+  {
+    id: 20124,
+    name: 'prodlines4.jpeg',
+    parent: 2012,
+    type: 'file',
+    icon: 'image',
+    content: '/src/data/projects/prodlines/prodlines4.jpeg',
   },
 
   // Project 2 contents

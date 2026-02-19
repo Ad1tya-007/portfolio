@@ -4,6 +4,7 @@ import {
   getFolderById,
   getFolderPath,
 } from '../data/folders';
+import FilePreview from './FilePreview';
 import './FolderWindow.css';
 
 function FolderWindow({
@@ -46,6 +47,7 @@ function FolderWindow({
   // Sidebar resizing state
   const [isResizingSidebar, setIsResizingSidebar] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(180);
+  const [openFile, setOpenFile] = useState(null);
 
   const windowRef = useRef(null);
   const titlebarRef = useRef(null);
@@ -253,15 +255,14 @@ function FolderWindow({
   const handleItemClick = (item) => {
     if (item.type === 'folder') {
       navigateToFolder(item.id);
-    } else {
-      // Handle file opening (can be implemented later)
-      console.log('Opening file:', item.name);
     }
   };
 
   const handleItemDoubleClick = (item) => {
     if (item.type === 'folder') {
       navigateToFolder(item.id);
+    } else {
+      setOpenFile(item);
     }
   };
 
@@ -269,6 +270,14 @@ function FolderWindow({
     <>
       {/* Snap indicator overlay */}
       {snapToTop && <div className="snap-indicator" />}
+
+      {openFile && (
+        <FilePreview
+          file={openFile}
+          appearance={appearance}
+          onClose={() => setOpenFile(null)}
+        />
+      )}
 
       <div
         ref={windowRef}
